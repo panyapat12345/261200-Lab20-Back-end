@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
@@ -24,5 +25,11 @@ public class CanvasController {
     @SubscribeMapping("/canvas")
     public Canvas sendInitialCanvas() {
         return canvas;
+    }
+
+    @MessageMapping("/newGame")
+    @SendTo("/topic/canvas")
+    public Canvas newGame(){
+        return canvas.newGame();
     }
 }
